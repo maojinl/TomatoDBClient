@@ -10,7 +10,7 @@ namespace TomatoDBDriver
         byte m_Index;
         byte m_Status;
         byte m_RetFlag;
-        int m_ProcessTime;
+        uint m_ProcessTime;
 
         public Packet()
         {
@@ -41,30 +41,21 @@ namespace TomatoDBDriver
 
         protected abstract bool WriteDetails(byte[] buf);
 
-        //·µ»ØÖµÎª£ºPACKET_EXE ÖÐµÄÄÚÈÝ£»
-        //PACKET_EXE_ERROR ±íÊ¾³öÏÖÑÏÖØ´íÎó£¬µ±Ç°Á¬½ÓÐèÒª±»Ç¿ÖÆ¶Ï¿ª
-        //PACKET_EXE_BREAK ±íÊ¾·µ»ØºóÊ£ÏÂµÄÏûÏ¢½«²»ÔÚµ±Ç°´¦ÀíÑ­»·Àï´¦Àí
-        //PACKET_EXE_CONTINUE ±íÊ¾¼ÌÐøÔÚµ±Ç°Ñ­»·ÀïÖ´ÐÐÊ£ÏÂµÄÏûÏ¢
-        //PACKET_EXE_NOTREMOVE ±íÊ¾¼ÌÐøÔÚµ±Ç°Ñ­»·ÀïÖ´ÐÐÊ£ÏÂµÄÏûÏ¢,µ«ÊÇ²»»ØÊÕµ±Ç°ÏûÏ¢
-        virtual UINT Execute(Player* pPlayer);
-	
-	virtual PacketID_t GetPacketID() const = 0;
+        public ushort GetPacketID() { return header.GetPacketId(); }
 
-        virtual UINT GetPacketSize() const = 0;
+        public abstract uint GetPacketSize();
 
-        virtual BOOL CheckPacket() { return TRUE; }
+        byte GetPacketIndex() { return m_Index; }
+        void SetPacketIndex(byte Index) { m_Index = Index; }
 
-        BYTE GetPacketIndex() const { return m_Index ; };
-    VOID SetPacketIndex(BYTE Index) { m_Index = Index; };
+        byte GetPacketStatus() { return m_Status ; }
+        void SetPacketStatus(byte Status) { m_Status = Status; }
 
-    BYTE GetPacketStatus() const { return m_Status ; };
-VOID SetPacketStatus(BYTE Status) { m_Status = Status; };
+        byte GetPacketRetFlag() { return m_RetFlag ; }
+        void SetPacketRetFlag(byte RetFlag) { m_RetFlag = RetFlag; }
 
-BYTE GetPacketRetFlag() const { return m_RetFlag ; } ;
-	VOID SetPacketRetFlag(BYTE RetFlag) { m_RetFlag = RetFlag; };
+        uint GetProcessTime() {return m_ProcessTime;}
+        void SetProcessTime(uint ProcessTime) { m_ProcessTime = ProcessTime; }
+    };
 
-UINT GetProcessTime() const {return m_ProcessTime;} ;
-	VOID SetProcessTime(UINT ProcessTime) { m_ProcessTime = ProcessTime; };
-};
-    }
 }

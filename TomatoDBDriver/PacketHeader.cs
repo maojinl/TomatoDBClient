@@ -12,13 +12,14 @@ namespace TomatoDBDriver
         public byte index;
         private byte[] length = { 0, 0, 0, 0 };
         public byte flag;
-
+        public const int PacketHeaderSize = 12;
+        
         // packageId action & control
-        ushort GetPackageId() 
+        public ushort GetPacketId() 
         {
             return BitConverter.ToUInt16(new byte[] {action, control});
         }
-        void SetPackageId(ushort val) 
+        public void SetPacketId(ushort val) 
         {
             byte[] ret = BitConverter.GetBytes(val);
             action = ret[0];
@@ -26,8 +27,8 @@ namespace TomatoDBDriver
         }
 
         // timestamp
-        Int32 GetTimestamp() { return BitConverter.ToInt32(ts); }
-        void SetTimestamp(Int32 val)
+        public Int32 GetTimestamp() { return BitConverter.ToInt32(ts); }
+        public void SetTimestamp(Int32 val)
         {
             byte[] ret = BitConverter.GetBytes(val);
             for (int i = 0; i < ts.Length; i++)
@@ -37,11 +38,11 @@ namespace TomatoDBDriver
         }
 
         // length
-        Int32 GetLength()
+        public Int32 GetLength()
         {
             return BitConverter.ToInt32(length);
         }
-        void SetLength(Int32 val)
+        public void SetLength(Int32 val)
         {
             byte[] ret = BitConverter.GetBytes(val);
             for (int i = 0; i < length.Length; i++)
@@ -49,7 +50,6 @@ namespace TomatoDBDriver
                 length[i] = ret[i];
             }
         }
-
 
         public bool Read(byte[] buf)
         {
@@ -85,6 +85,20 @@ namespace TomatoDBDriver
             }
             buf[pos] = flag;
             return true;
+        }
+
+        public Packet CreatePacket(byte[] buf)
+        {
+            Read(buf);
+            ushort pid = GetPacketId();
+            switch (pid)
+            {
+                default:
+                    {
+                        return null;
+                    }
+            }
+
         }
     }
 }
