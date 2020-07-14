@@ -36,5 +36,3 @@ build/
 bin/
 .vs/
 obj/
-
-TomatoDBClient/obj/Debug/netcoreapp3.1/TomatoDBClient.assets.cache
