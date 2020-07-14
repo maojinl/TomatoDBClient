@@ -24,8 +24,7 @@ namespace TomatoDBDriver
 
         public bool Read(byte[] buf)
         {
-
-            return true;
+            return ReadDetails(buf);
         }
 
 		public bool Write(byte[] buf)
@@ -34,7 +33,7 @@ namespace TomatoDBDriver
             {
                 return false;
             }
-            return true;
+            return WriteDetails(buf);
         }
 
         protected abstract bool ReadDetails(byte[] buf);

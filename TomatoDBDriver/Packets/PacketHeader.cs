@@ -100,5 +100,16 @@ namespace TomatoDBDriver
             }
 
         }
+
+        public static PacketHeader ParseHeader(byte[] buf)
+        {
+            if (buf.Length > PacketHeaderSize)
+            {
+                PacketHeader header = new PacketHeader();
+                header.Read(buf);
+                return header;
+            }
+            return null;
+        }
     }
 }
