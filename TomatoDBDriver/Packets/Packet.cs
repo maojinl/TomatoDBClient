@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading;
 
-namespace TomatoDBDriver
+namespace TomatoDBDriver.Packets
 {
     public abstract class Packet
     {
@@ -14,12 +13,16 @@ namespace TomatoDBDriver
 
         public Packet()
         {
+            header = new PacketHeader();
             m_Status = 0;
             m_ProcessTime = 0;
         }
 
-        public virtual void CleanUp()
+        public void PopulateHeader(uint timeStamp)
         {
+            header.SetPacketId(GetPacketID());
+            header.SetLength(GetPacketSize());
+            header.SetTimestamp(timeStamp);
         }
 
         public bool Read(byte[] buf)
@@ -29,20 +32,21 @@ namespace TomatoDBDriver
 
 		public bool Write(byte[] buf)
         {
+            PopulateHeader((uint)DateTime.Now.Ticks);
             if (!header.Write(buf))
             {
                 return false;
             }
             return WriteDetails(buf);
         }
+        public virtual void CleanUp()
+        {
+        }
 
-        protected abstract bool ReadDetails(byte[] buf);
-
-        protected abstract bool WriteDetails(byte[] buf);
-
-        public ushort GetPacketID() { return header.GetPacketId(); }
-
-        public abstract uint GetPacketSize();
+        public uint GetFullPacketSize()
+        {
+            return GetPacketSize() + PacketHeader.PacketHeaderSize;
+        }
 
         byte GetPacketIndex() { return m_Index; }
         void SetPacketIndex(byte Index) { m_Index = Index; }
@@ -55,6 +59,15 @@ namespace TomatoDBDriver
 
         uint GetProcessTime() {return m_ProcessTime;}
         void SetProcessTime(uint ProcessTime) { m_ProcessTime = ProcessTime; }
+
+        protected abstract bool ReadDetails(byte[] buf);
+
+        protected abstract bool WriteDetails(byte[] buf);
+
+        public abstract ushort GetPacketID();
+        //public ushort GetPacketID() { return header.GetPacketId(); }
+
+        public abstract uint GetPacketSize();
     };
 
 }

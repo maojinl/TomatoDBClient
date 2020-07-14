@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TomatoDBDriver;
 
 namespace TomatoDBClient
 {
@@ -17,5 +18,13 @@ namespace TomatoDBClient
             InitializeComponent();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string ip = "192.128.1.200";
+            int port = 8880;
+            string acc = "root";
+            string pass = "password";
+            DBConnection conn = new DBConnection(ip, port, acc, pass);
+        }
     }
 }

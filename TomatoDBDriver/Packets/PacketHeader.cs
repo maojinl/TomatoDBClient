@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace TomatoDBDriver
+namespace TomatoDBDriver.Packets
 {
     class PacketHeader
     {
@@ -27,8 +25,8 @@ namespace TomatoDBDriver
         }
 
         // timestamp
-        public Int32 GetTimestamp() { return BitConverter.ToInt32(ts); }
-        public void SetTimestamp(Int32 val)
+        public uint GetTimestamp() { return BitConverter.ToUInt32(ts); }
+        public void SetTimestamp(uint val)
         {
             byte[] ret = BitConverter.GetBytes(val);
             for (int i = 0; i < ts.Length; i++)
@@ -38,11 +36,11 @@ namespace TomatoDBDriver
         }
 
         // length
-        public Int32 GetLength()
+        public uint GetLength()
         {
-            return BitConverter.ToInt32(length);
+            return BitConverter.ToUInt32(length);
         }
-        public void SetLength(Int32 val)
+        public void SetLength(uint val)
         {
             byte[] ret = BitConverter.GetBytes(val);
             for (int i = 0; i < length.Length; i++)
@@ -93,6 +91,13 @@ namespace TomatoDBDriver
             ushort pid = GetPacketId();
             switch (pid)
             {
+                case
+                    (ushort)PACKET_ID_DEFINE.PACKET_SC_RETLOGIN:
+                    {
+                        SCRetLogin loginRet = new SCRetLogin();
+                        loginRet.Read(buf);
+                        return loginRet;
+                    }
                 default:
                     {
                         return null;

@@ -1,9 +1,15 @@
-﻿namespace TomatoDBDriver
+﻿namespace TomatoDBDriver.Packets
 {
     class CSAskLogin : Packet
     {
-        string accout;
-        string passWord;
+        public string accout;
+        public string password;
+
+        public override ushort GetPacketID()
+        {
+            return (ushort)PACKET_ID_DEFINE.PACKET_CS_ASKLOGIN;
+        }
+
         public override uint GetPacketSize()
         {
             return sizeof(char) * (PacketDefines.MAX_ACCOUNT + 1) * 2;
@@ -19,7 +25,7 @@
 
             pos = pos + PacketDefines.MAX_ACCOUNT + 1;
             System.Buffer.BlockCopy(buf, pos, chars, 0, l);
-            passWord = new string(chars);
+            password = new string(chars);
 
             return true;
         }
@@ -32,7 +38,7 @@
             System.Buffer.BlockCopy(chars, 0, buf, pos,  l);
 
             pos = pos + PacketDefines.MAX_ACCOUNT + 1;
-            chars = passWord.Substring(0, l).ToCharArray();
+            chars = password.Substring(0, l).ToCharArray();
             System.Buffer.BlockCopy(chars, 0, buf, pos, l);
             return true;
         }

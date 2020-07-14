@@ -29,6 +29,7 @@ namespace TomatoDBDriver
             remoteEP = new IPEndPoint(ipAddress, iPort);
             socket = new Socket(ipAddress.AddressFamily,
                 SocketType.Stream, ProtocolType.Tcp);
+            socket.Connect(remoteEP);
             connected = true;
             return connected;
         }

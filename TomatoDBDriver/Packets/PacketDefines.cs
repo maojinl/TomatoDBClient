@@ -1,10 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TomatoDBDriver
+﻿namespace TomatoDBDriver.Packets
 {
-    enum PACKET_DEFINE
+    public enum LOGIN_RESULT
+    {
+        LOGINR_SUCCESS = 1,
+        LOGINR_AUTH_FAIL,
+        LOGINR_VERSION_FAIL,
+        LOGINR_STOP_SERVICE,
+        LOGINCR_FULL,
+        LOGINCR_STOP_SERVICE,
+    }
+    public enum PACKET_ID_DEFINE
     {
         PACKET_NONE = 0,
 
@@ -28,9 +33,11 @@ namespace TomatoDBDriver
         PACKET_CS_ASKDBQUERY,
         PACKET_SC_RETDBQUERY,
         PACKET_MAX
-    };
+    }
     public static class PacketDefines
     {
-        public const int MAX_ACCOUNT = 16;
+        public const int MAX_ACCOUNT = 15;
+        public const int MAX_CHARACTER_NAME = 31;
+        public const int MAX_CHARACTER_TITLE = 31;
     }
 }
