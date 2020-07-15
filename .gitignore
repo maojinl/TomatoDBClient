@@ -35,4 +35,4 @@
 build/
 bin/
 .vs/
-obj/
+*/obj/
