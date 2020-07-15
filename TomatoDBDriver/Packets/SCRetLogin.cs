@@ -1,4 +1,7 @@
-﻿namespace TomatoDBDriver.Packets
+﻿using System;
+using System.Text;
+
+namespace TomatoDBDriver.Packets
 {
     public class SCRetLogin : Packet
     {
@@ -23,15 +26,28 @@
         protected override bool ReadDetails(byte[] buf)
         {
             int pos = PacketHeader.PacketHeaderSize;
-            int l = PacketDefines.MAX_CHARACTER_NAME + 1;
-            char[] chars = new char[l];
+            int l = sizeof(LOGIN_RESULT);
+            byte[] chars = new byte[l];
             System.Buffer.BlockCopy(buf, pos, chars, 0, l);
-            charName = new string(chars);
+            Result = (LOGIN_RESULT)BitConverter.ToUInt32(chars);
 
-            pos = pos + PacketDefines.MAX_CHARACTER_NAME + 1;
-            l = PacketDefines.MAX_CHARACTER_TITLE + 1;
+            pos = pos + l;
+            l = PacketDefines.MAX_CHARACTER_NAME + 1;
+            chars = new byte[l];
             System.Buffer.BlockCopy(buf, pos, chars, 0, l);
-            titleName = new string(chars);
+            charName = Encoding.ASCII.GetString(chars);
+
+            pos = pos + l;
+            l = PacketDefines.MAX_CHARACTER_TITLE + 1;
+            chars = new byte[l];
+            System.Buffer.BlockCopy(buf, pos, chars, 0, l);
+            titleName = Encoding.ASCII.GetString(chars);
+
+            pos = pos + l;
+            l = sizeof(uint);
+            chars = new byte[l];
+            System.Buffer.BlockCopy(buf, pos, chars, 0, l);
+            level = BitConverter.ToUInt32(chars);
 
             return true;
         }
@@ -39,13 +55,13 @@
         protected override bool WriteDetails(byte[] buf)
         {
             int pos = PacketHeader.PacketHeaderSize;
-            int l = PacketDefines.MAX_CHARACTER_NAME + 1;
-            char[] chars = charName.Substring(0, l).ToCharArray();
+            int l = Math.Min(PacketDefines.MAX_CHARACTER_NAME + 1, charName.Length);
+            byte[] chars = Encoding.ASCII.GetBytes(charName.Substring(0, l));
             System.Buffer.BlockCopy(chars, 0, buf, pos, l);
 
             pos = pos + PacketDefines.MAX_CHARACTER_NAME + 1;
-            l = PacketDefines.MAX_CHARACTER_TITLE + 1;
-            chars = titleName.Substring(0, l).ToCharArray();
+            l = Math.Min(PacketDefines.MAX_CHARACTER_TITLE + 1, titleName.Length);
+            chars = Encoding.ASCII.GetBytes(titleName.Substring(0, l));
             System.Buffer.BlockCopy(chars, 0, buf, pos, l);
             return true;
         }

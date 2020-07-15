@@ -21,7 +21,7 @@ namespace TomatoDBDriver
             PacketHeader header = PacketHeader.ParseHeader(recvBuf);
             if (header != null)
             {
-                Packet p = header.CreatePacket(buf);
+                Packet p = header.CreatePacket(recvBuf);
                 if (p != null)
                 {
                     SCRetLogin login = (SCRetLogin)p;

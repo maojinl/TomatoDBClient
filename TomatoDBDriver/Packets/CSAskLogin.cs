@@ -1,4 +1,7 @@
-﻿namespace TomatoDBDriver.Packets
+﻿using System;
+using System.Text;
+
+namespace TomatoDBDriver.Packets
 {
     class CSAskLogin : Packet
     {
@@ -12,20 +15,20 @@
 
         public override uint GetPacketSize()
         {
-            return sizeof(char) * (PacketDefines.MAX_ACCOUNT + 1) * 2;
+            return sizeof(byte) * (PacketDefines.MAX_ACCOUNT + 1) * 2;
         }
 
         protected override bool ReadDetails(byte[] buf)
         {
             int pos = PacketHeader.PacketHeaderSize;
             int l = PacketDefines.MAX_ACCOUNT + 1;
-            char[] chars = new char[l];
+            byte[] chars = new byte[l];
             System.Buffer.BlockCopy(buf, pos, chars, 0, l);
-            accout = new string(chars);
+            accout = Encoding.ASCII.GetString(chars);
 
             pos = pos + PacketDefines.MAX_ACCOUNT + 1;
             System.Buffer.BlockCopy(buf, pos, chars, 0, l);
-            password = new string(chars);
+            password = Encoding.ASCII.GetString(chars);
 
             return true;
         }
@@ -33,12 +36,13 @@
         protected override bool WriteDetails(byte[] buf)
         {
             int pos = PacketHeader.PacketHeaderSize;
-            int l = PacketDefines.MAX_ACCOUNT + 1;
-            char[] chars = accout.Substring(0, l).ToCharArray();
+            int l = Math.Min(PacketDefines.MAX_ACCOUNT + 1, accout.Length);
+            byte[] chars = Encoding.ASCII.GetBytes(accout.Substring(0, l));
             System.Buffer.BlockCopy(chars, 0, buf, pos,  l);
 
             pos = pos + PacketDefines.MAX_ACCOUNT + 1;
-            chars = password.Substring(0, l).ToCharArray();
+            l = Math.Min(PacketDefines.MAX_ACCOUNT + 1, password.Length);
+            chars = Encoding.ASCII.GetBytes(password.Substring(0, l));
             System.Buffer.BlockCopy(chars, 0, buf, pos, l);
             return true;
         }

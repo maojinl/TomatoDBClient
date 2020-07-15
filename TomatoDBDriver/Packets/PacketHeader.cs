@@ -87,7 +87,7 @@ namespace TomatoDBDriver.Packets
 
         public Packet CreatePacket(byte[] buf)
         {
-            Read(buf);
+            //Read(buf);
             ushort pid = GetPacketId();
             switch (pid)
             {
