@@ -1,6 +1,16 @@
-﻿namespace TomatoDBDriver.Packets
+﻿namespace TomatoDBDriver.Packets.Defines
 {
     public enum LOGIN_RESULT
+    {
+        LOGINR_SUCCESS = 1,
+        LOGINR_AUTH_FAIL,
+        LOGINR_VERSION_FAIL,
+        LOGINR_STOP_SERVICE,
+        LOGINCR_FULL,
+        LOGINCR_STOP_SERVICE,
+    }
+
+    public enum DB_QUERY_TYPE
     {
         LOGINR_SUCCESS = 1,
         LOGINR_AUTH_FAIL,

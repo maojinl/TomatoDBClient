@@ -4,7 +4,7 @@ using TomatoDBDriver.Packets.Defines;
 
 namespace TomatoDBDriver.Packets
 {
-    public class SCRetLogin : Packet
+    public class SCRetDBQuery : Packet
     {
         public LOGIN_RESULT Result;
         public string CharName;

@@ -24,22 +24,30 @@ namespace TomatoDBDriver
             connected = false;
         }
 
-        public bool Connect()
+        public void Connect()
         {
-            remoteEP = new IPEndPoint(ipAddress, iPort);
-            socket = new Socket(ipAddress.AddressFamily,
-                SocketType.Stream, ProtocolType.Tcp);
-            socket.Connect(remoteEP);
+            try
+            {
+                remoteEP = new IPEndPoint(ipAddress, iPort);
+                socket = new Socket(ipAddress.AddressFamily,
+                    SocketType.Stream, ProtocolType.Tcp);
+                socket.Connect(remoteEP);
+            }
+            catch (Exception ex)
+            {
+                throw new TomatoDBException("Network connection error!", ex);
+            }
             connected = true;
-            return connected;
         }
         
-        public bool Send(byte[] msg, byte[] receive)
+        public int Send(byte[] msg)
         {
-            int bytesSent = socket.Send(msg);
-            // Receive the response from the remote device.  
-            int bytesRec = socket.Receive(receive);
-            return true;
+            return socket.Send(msg);
+        }
+
+        public int Receive(byte[] returnMsg)
+        {
+            return socket.Receive(returnMsg);
         }
 
         public bool Disconnect()

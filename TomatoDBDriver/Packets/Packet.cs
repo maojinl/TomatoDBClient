@@ -32,6 +32,7 @@ namespace TomatoDBDriver.Packets
 
 		public bool Write(byte[] buf)
         {
+            Array.Clear(buf, 0, buf.Length);
             PopulateHeader((uint)DateTime.Now.Ticks);
             if (!header.Write(buf))
             {
@@ -46,6 +47,17 @@ namespace TomatoDBDriver.Packets
         public uint GetFullPacketSize()
         {
             return GetPacketSize() + PacketHeader.PacketHeaderSize;
+        }
+
+        public static Packet Parse(byte[] buf)
+        {
+            PacketHeader header = PacketHeader.ParseHeader(buf);
+            if (header != null)
+            {
+                Packet p = header.CreatePacket(buf);
+                return p;
+            }
+            return null;
         }
 
         byte GetPacketIndex() { return m_Index; }
@@ -65,7 +77,6 @@ namespace TomatoDBDriver.Packets
         protected abstract bool WriteDetails(byte[] buf);
 
         public abstract ushort GetPacketID();
-        //public ushort GetPacketID() { return header.GetPacketId(); }
 
         public abstract uint GetPacketSize();
     };
