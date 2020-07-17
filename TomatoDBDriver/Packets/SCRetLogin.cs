@@ -19,8 +19,8 @@ namespace TomatoDBDriver.Packets
         public override uint GetPacketSize()
         {
             return sizeof (LOGIN_RESULT) 
-                + sizeof(char) * (PacketDefines.MAX_CHARACTER_NAME + 1) 
-                + sizeof(char) * (PacketDefines.MAX_CHARACTER_TITLE + 1)
+                + sizeof(byte) * (PacketDefines.MAX_CHARACTER_NAME + 1) 
+                + sizeof(byte) * (PacketDefines.MAX_CHARACTER_TITLE + 1)
                 + sizeof(uint);
         }
 
@@ -55,15 +55,6 @@ namespace TomatoDBDriver.Packets
 
         protected override bool WriteDetails(byte[] buf)
         {
-            //int pos = PacketHeader.PacketHeaderSize;
-            //int l = Math.Min(PacketDefines.MAX_CHARACTER_NAME + 1, CharName.Length);
-            //byte[] chars = Encoding.ASCII.GetBytes(CharName.Substring(0, l));
-            //System.Buffer.BlockCopy(chars, 0, buf, pos, l);
-
-            //pos = pos + PacketDefines.MAX_CHARACTER_NAME + 1;
-            //l = Math.Min(PacketDefines.MAX_CHARACTER_TITLE + 1, Title.Length);
-            //chars = Encoding.ASCII.GetBytes(Title.Substring(0, l));
-            //System.Buffer.BlockCopy(chars, 0, buf, pos, l);
             return true;
         }
     }

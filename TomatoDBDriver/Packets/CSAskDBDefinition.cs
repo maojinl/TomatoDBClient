@@ -4,25 +4,21 @@ using TomatoDBDriver.Packets.Defines;
 
 namespace TomatoDBDriver.Packets
 {
-    class CSAskDBQuery : Packet
+    class CSAskDBDefinition : Packet
     {
-        public DB_QUERY_TYPE QueryType;
+        public DB_OPERATION_TYPE OperationType;
         public byte DatabaseNameSize;
-        public string DatabaseName;
-        byte KeySize;
-        public string Key;
+        public string DatabaseName;	//database name
         public override ushort GetPacketID()
         {
-            return (ushort)PACKET_ID_DEFINE.PACKET_CS_ASKDBDEFINITION;
+            return (ushort)PACKET_ID_DEFINE.PACKET_CS_ASKDBQUERY;
         }
 
         public override uint GetPacketSize()
         {
-            return sizeof(DB_QUERY_TYPE)
+            return sizeof(DB_OPERATION_TYPE)
                 + sizeof(byte)
-                + sizeof(byte) * (uint)DatabaseNameSize
-                + sizeof(byte)
-                + sizeof(byte) * (uint)KeySize;
+                + sizeof(byte) * (uint)DatabaseNameSize;
         }
 
         protected override bool ReadDetails(byte[] buf)
@@ -33,8 +29,8 @@ namespace TomatoDBDriver.Packets
         protected override bool WriteDetails(byte[] buf)
         {
             int pos = PacketHeader.PacketHeaderSize;
-            int l = sizeof(DB_QUERY_TYPE);
-            byte[] chars = BitConverter.GetBytes((int)QueryType);
+            int l = sizeof(DB_OPERATION_TYPE);
+            byte[] chars = BitConverter.GetBytes((int)OperationType);
             System.Buffer.BlockCopy(chars, 0, buf, pos, l);
 
             DatabaseNameSize = (byte)Math.Min(PacketDefines.MAX_DATABASE_NAME + 1, DatabaseName.Length);
@@ -48,16 +44,6 @@ namespace TomatoDBDriver.Packets
             chars = Encoding.ASCII.GetBytes(DatabaseName);
             System.Buffer.BlockCopy(chars, 0, buf, pos, l);
 
-            KeySize = (byte)Math.Min(PacketDefines.MAX_DATABASE_KEY + 1, DatabaseName.Length);
-            pos += l;
-            l = sizeof(byte);
-            chars = BitConverter.GetBytes(KeySize);
-            System.Buffer.BlockCopy(chars, 0, buf, pos, l);
-
-            pos += l;
-            l = KeySize;
-            chars = Encoding.ASCII.GetBytes(Key);
-            System.Buffer.BlockCopy(chars, 0, buf, pos, l);
             return true;
         }
     }
