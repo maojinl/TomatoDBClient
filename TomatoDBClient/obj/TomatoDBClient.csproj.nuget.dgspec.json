@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\personal\\TomatoDBClient\\TomatoDBClient\\TomatoDBClient.csproj": {}
+    "C:\\workspace\\TomatoDBClient\\TomatoDBClient\\TomatoDBClient.csproj": {}
   },
   "projects": {
-    "E:\\personal\\TomatoDBClient\\TomatoDBClient\\TomatoDBClient.csproj": {
+    "C:\\workspace\\TomatoDBClient\\TomatoDBClient\\TomatoDBClient.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\personal\\TomatoDBClient\\TomatoDBClient\\TomatoDBClient.csproj",
+        "projectUniqueName": "C:\\workspace\\TomatoDBClient\\TomatoDBClient\\TomatoDBClient.csproj",
         "projectName": "TomatoDBClient",
-        "projectPath": "E:\\personal\\TomatoDBClient\\TomatoDBClient\\TomatoDBClient.csproj",
-        "packagesPath": "C:\\Users\\Jerry.mao\\.nuget\\packages\\",
-        "outputPath": "E:\\personal\\TomatoDBClient\\TomatoDBClient\\obj\\",
+        "projectPath": "C:\\workspace\\TomatoDBClient\\TomatoDBClient\\TomatoDBClient.csproj",
+        "packagesPath": "C:\\Users\\maojinl\\.nuget\\packages\\",
+        "outputPath": "C:\\workspace\\TomatoDBClient\\TomatoDBClient\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Jerry.mao\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\maojinl\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -30,8 +27,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "E:\\personal\\TomatoDBClient\\TomatoDBDriver\\TomatoDBDriver.csproj": {
-                "projectPath": "E:\\personal\\TomatoDBClient\\TomatoDBDriver\\TomatoDBDriver.csproj"
+              "C:\\workspace\\TomatoDBClient\\TomatoDBDriver\\TomatoDBDriver.csproj": {
+                "projectPath": "C:\\workspace\\TomatoDBClient\\TomatoDBDriver\\TomatoDBDriver.csproj"
               }
             }
           }
@@ -62,24 +59,21 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\personal\\TomatoDBClient\\TomatoDBDriver\\TomatoDBDriver.csproj": {
+    "C:\\workspace\\TomatoDBClient\\TomatoDBDriver\\TomatoDBDriver.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\personal\\TomatoDBClient\\TomatoDBDriver\\TomatoDBDriver.csproj",
+        "projectUniqueName": "C:\\workspace\\TomatoDBClient\\TomatoDBDriver\\TomatoDBDriver.csproj",
         "projectName": "TomatoDBDriver",
-        "projectPath": "E:\\personal\\TomatoDBClient\\TomatoDBDriver\\TomatoDBDriver.csproj",
-        "packagesPath": "C:\\Users\\Jerry.mao\\.nuget\\packages\\",
-        "outputPath": "E:\\personal\\TomatoDBClient\\TomatoDBDriver\\obj\\",
+        "projectPath": "C:\\workspace\\TomatoDBClient\\TomatoDBDriver\\TomatoDBDriver.csproj",
+        "packagesPath": "C:\\Users\\maojinl\\.nuget\\packages\\",
+        "outputPath": "C:\\workspace\\TomatoDBClient\\TomatoDBDriver\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Jerry.mao\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\maojinl\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -117,7 +111,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

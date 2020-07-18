@@ -41,7 +41,7 @@ namespace TomatoDBDriver.Packets
             byte[] chars = Encoding.ASCII.GetBytes(accout.Substring(0, l));
             System.Buffer.BlockCopy(chars, 0, buf, pos,  l);
 
-            pos += pos + PacketDefines.MAX_ACCOUNT + 1;
+            pos = pos + PacketDefines.MAX_ACCOUNT + 1;
             l = Math.Min(PacketDefines.MAX_ACCOUNT + 1, password.Length);
             chars = Encoding.ASCII.GetBytes(password.Substring(0, l));
             System.Buffer.BlockCopy(chars, 0, buf, pos, l);

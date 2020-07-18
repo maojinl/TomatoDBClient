@@ -1,4 +1,5 @@
-﻿using TomatoDBDriver.Packets;
+﻿using System.Collections.Generic;
+using TomatoDBDriver.Packets;
 
 namespace TomatoDBDriver
 {
@@ -17,7 +18,42 @@ namespace TomatoDBDriver
 
         public void Open()
         {
-            networkMgr.Connect(dbAccount.Account, dbAccount.Password);
+            networkMgr.Connect(dbAccount);
+        }
+
+        public void Close()
+        {
+            networkMgr.Disconnect();
+        }
+
+        public List<string> GetDatabaseList()
+        {
+            return networkMgr.GetDatabaseList();
+        }
+
+        public void CreateDatabase(string database)
+        {
+            networkMgr.CreateDatabase(database);
+        }
+
+        public void DeleteDatabase(string database)
+        {
+            networkMgr.CreateDatabase(database);
+        }
+
+        public void SetKey(string database, string key, string value)
+        {
+            networkMgr.SetKey(database, key, value);
+        }
+
+        public void DeleteKey(string database, string key)
+        {
+            networkMgr.DeleteKey(database, key);
+        }
+
+        public string GetKeyValue(string database, string key)
+        {
+            return networkMgr.GetKeyValue(database, key);
         }
     }
 }

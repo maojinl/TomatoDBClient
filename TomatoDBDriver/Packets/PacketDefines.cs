@@ -73,5 +73,6 @@
         public const int MAX_CHARACTER_TITLE = 31;
         public const int MAX_DATABASE_NAME = 63;
         public const int MAX_DATABASE_KEY = 127;
+        public const int MAX_DATABASE_VALUE = 1048575;
     }
 }

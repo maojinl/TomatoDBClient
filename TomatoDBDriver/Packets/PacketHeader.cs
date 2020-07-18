@@ -1,4 +1,5 @@
 ﻿using System;
+using TomatoDBDriver.Packets.Defines;
 
 namespace TomatoDBDriver.Packets
 {
@@ -94,16 +95,36 @@ namespace TomatoDBDriver.Packets
                 case
                     (ushort)PACKET_ID_DEFINE.PACKET_SC_RETLOGIN:
                     {
-                        SCRetLogin loginRet = new SCRetLogin();
-                        loginRet.Read(buf);
-                        return loginRet;
+                        SCRetLogin p = new SCRetLogin();
+                        p.Read(buf);
+                        return p;
+                    }
+                case
+                    (ushort)PACKET_ID_DEFINE.PACKET_SC_RETDBDEFINITION:
+                    {
+                        SCRetDBDefinition p = new SCRetDBDefinition();
+                        p.Read(buf);
+                        return p;
+                    }
+                case
+                    (ushort)PACKET_ID_DEFINE.PACKET_SC_RETDBMANIPULATE:
+                    {
+                        SCRetDBManipulate p = new SCRetDBManipulate();
+                        p.Read(buf);
+                        return p;
+                    }
+                case
+                    (ushort)PACKET_ID_DEFINE.PACKET_SC_RETDBQUERY:
+                    {
+                        SCRetDBQuery p = new SCRetDBQuery();
+                        p.Read(buf);
+                        return p;
                     }
                 default:
                     {
                         return null;
                     }
             }
-
         }
 
         public static PacketHeader ParseHeader(byte[] buf)

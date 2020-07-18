@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Bw3jaA1BzLgKavHolKwKRM+V2wvCy3K3a6TO0aLGqgP/S10qllWNAr0qmtxyLC/lvqe9mRPpXai+5/CzDOnmWQ==",
+  "dgSpecHash": "qpCtpblQJ+oJQ0JEUujBdBC0bvHlCg1bj07Ng2EH5CZ1vWaMv1iFrN70lXNgsDtD1nNIZ/HAu5yvfO0DK5K6WQ==",
   "success": true,
-  "projectFilePath": "E:\\personal\\TomatoDBClient\\TomatoDBClient\\TomatoDBClient.csproj",
+  "projectFilePath": "C:\\workspace\\TomatoDBClient\\TomatoDBClient\\TomatoDBClient.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

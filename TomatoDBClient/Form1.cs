@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
 using TomatoDBDriver;
 
 namespace TomatoDBClient
 {
     public partial class Form1 : Form
     {
+        DBConnection conn;
         public Form1()
         {
             InitializeComponent();
@@ -26,7 +22,30 @@ namespace TomatoDBClient
             int port = 7377;
             string acc = "root";
             string pass = "password";
-            DBConnection conn = new DBConnection(ip, port, acc, pass);
+            conn = new DBConnection(ip, port, acc, pass);
+            conn.Open();
+            listBox1.Items.Clear();
+            List<string> dbList = conn.GetDatabaseList();
+            foreach (string db in dbList)
+            {
+                listBox1.Items.Add(db);
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            conn.Close();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            conn.CreateDatabase(textBox1.Text);
+            listBox1.Items.Clear();
+            List<string> dbList = conn.GetDatabaseList();
+            foreach (string db in dbList)
+            {
+                listBox1.Items.Add(db);
+            }
         }
     }
 }

@@ -49,7 +49,7 @@ namespace TomatoDBDriver.Packets
             chars = new byte[l];
             System.Buffer.BlockCopy(buf, pos, chars, 0, l);
             ValuesSize = BitConverter.ToUInt32(chars);
-
+            Values = new List<string>();
             for (int i = 0; i < ValuesSize; i++)
             {
                 pos = pos + l;

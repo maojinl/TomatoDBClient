@@ -11,9 +11,17 @@ namespace TomatoDBDriver.Packets
         public string DatabaseName;
         byte KeySize;
         public string Key;
+
+        public CSAskDBQuery()
+        {
+            DatabaseNameSize = 0;
+            DatabaseName = "";
+            KeySize = 0;
+            Key = "";
+        }
         public override ushort GetPacketID()
         {
-            return (ushort)PACKET_ID_DEFINE.PACKET_CS_ASKDBDEFINITION;
+            return (ushort)PACKET_ID_DEFINE.PACKET_CS_ASKDBQUERY;
         }
 
         public override uint GetPacketSize()

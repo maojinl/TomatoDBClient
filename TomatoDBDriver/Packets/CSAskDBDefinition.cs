@@ -11,11 +11,12 @@ namespace TomatoDBDriver.Packets
         public string DatabaseName;	//database name
         public override ushort GetPacketID()
         {
-            return (ushort)PACKET_ID_DEFINE.PACKET_CS_ASKDBQUERY;
+            return (ushort)PACKET_ID_DEFINE.PACKET_CS_ASKDBDEFINITION;
         }
 
         public override uint GetPacketSize()
         {
+            DatabaseNameSize = (byte)Math.Min(PacketDefines.MAX_DATABASE_NAME + 1, DatabaseName.Length);
             return sizeof(DB_OPERATION_TYPE)
                 + sizeof(byte)
                 + sizeof(byte) * (uint)DatabaseNameSize;

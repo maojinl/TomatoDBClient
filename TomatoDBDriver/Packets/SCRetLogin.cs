@@ -13,7 +13,7 @@ namespace TomatoDBDriver.Packets
 
         public override ushort GetPacketID()
         {
-            return (ushort)PACKET_ID_DEFINE.PACKET_CS_ASKLOGIN;
+            return (ushort)PACKET_ID_DEFINE.PACKET_SC_RETLOGIN;
         }
 
         public override uint GetPacketSize()
