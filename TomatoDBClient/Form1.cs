@@ -47,5 +47,16 @@ namespace TomatoDBClient
                 listBox1.Items.Add(db);
             }
         }
+
+        private void btnSetKeyValue_Click(object sender, EventArgs e)
+        {
+            conn.SetKey(listBox1.SelectedItem.ToString(), textBox2.Text, textBox3.Text);
+            listBox1.Items.Clear();
+            List<string> dbList = conn.GetDatabaseList();
+            foreach (string db in dbList)
+            {
+                listBox1.Items.Add(db);
+            }
+        }
     }
 }
