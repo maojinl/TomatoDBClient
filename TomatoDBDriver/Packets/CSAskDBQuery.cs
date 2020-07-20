@@ -58,7 +58,7 @@ namespace TomatoDBDriver.Packets
             chars = Encoding.ASCII.GetBytes(DatabaseName);
             System.Buffer.BlockCopy(chars, 0, buf, pos, l);
 
-            KeySize = (byte)Math.Min(PacketDefines.MAX_DATABASE_KEY + 1, DatabaseName.Length);
+            KeySize = (byte)Math.Min(PacketDefines.MAX_DATABASE_KEY + 1, Key.Length);
             pos += l;
             l = sizeof(byte);
             chars = BitConverter.GetBytes(KeySize);

@@ -45,22 +45,25 @@ namespace TomatoDBDriver
 
         public void Connect(DBAccount dbAccount)
         {
-            socketObj.Connect();
-            CSAskLogin loginPacket = new CSAskLogin();
-            loginPacket.accout = dbAccount.Account;
-            loginPacket.password = dbAccount.Password;
-            Packet p = SendCommand(loginPacket);
-            SCRetLogin login = (SCRetLogin)p;
-            if (login.Result == LOGIN_RESULT.LOGINR_SUCCESS)
+            if (!socketObj.Connected)
             {
-                dbAccount.UserName = login.CharName;
-                dbAccount.Title = login.Title;
-                dbAccount.Level = login.Level;
-                return;
-            }
-            else
-            {
-                throw new TomatoDBException("Login error.", (int)login.Result);
+                socketObj.Connect();
+                CSAskLogin loginPacket = new CSAskLogin();
+                loginPacket.accout = dbAccount.Account;
+                loginPacket.password = dbAccount.Password;
+                Packet p = SendCommand(loginPacket);
+                SCRetLogin login = (SCRetLogin)p;
+                if (login.Result == LOGIN_RESULT.LOGINR_SUCCESS)
+                {
+                    dbAccount.UserName = login.CharName;
+                    dbAccount.Title = login.Title;
+                    dbAccount.Level = login.Level;
+                    return;
+                }
+                else
+                {
+                    throw new TomatoDBException("Login error.", (int)login.Result);
+                }
             }
         }
 
@@ -101,7 +104,7 @@ namespace TomatoDBDriver
                 }
                 else
                 {
-                    return "NOT_FOUND";
+                    return null;
                 }
             }
             else

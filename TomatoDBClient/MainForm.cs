@@ -1,32 +1,11 @@
-﻿// ***********************************************************************
-//                                NOTICE
-//
-//      THIS DOCUMENT REPRESENTS CONFIDENTIAL PROPRIETARY PROGRAM
-//      PRODUCTS AND PROPRIETARY INFORMATION AND COPYRIGHTABLE MATERIAL
-//      OWNED BY BALLY GAMING, INC. OR ITS AFFILIATED COMPANIES.
-//      NEITHER RECEIPT NOR POSSESSION OF THIS DOCUMENT CONFERS ANY RIGHT
-//      TO REPRODUCE, COPY, PREPARE DERIVATIVE WORKS, USE, OR DISCLOSE,
-//      IN WHOLE OR IN PART, ANY PROGRAM, PRODUCT OR INFORMATION CONTAINED
-//      HEREIN WITHOUT WRITTEN AUTHORIZATION FROM BALLY GAMING, INC.
-//
-//              COPYRIGHT 2017-2019 BALLY GAMING, INC.
-//                        ALL RIGHTS RESERVED.
-//
-// ***********************************************************************
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Security.Principal;
 using System.Windows.Forms;
 
 using TomatoDBClient.Const;
 using TomatoDBClient.Env;
 using TomatoDBClient.Msg;
-
-using Microsoft.Win32;
 using TomatoDBDriver;
 
 namespace TomatoDBClient
@@ -47,13 +26,14 @@ namespace TomatoDBClient
             InitMessageMgr();
             InitEnvForm();
             InitToolTips();
-            //this.Text = AssemblyInfo.Title + "  " + AssemblyInfo.Version;
+            this.Text = Constants.appName;
             
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             this.txtServer.Text = settings.ServerIP + ":" + settings.ServerPort;
+            this.picServerConnction.BackgroundImage = Properties.Resources.disconnected;
         }
 
         private void InitSettings()
@@ -68,7 +48,6 @@ namespace TomatoDBClient
         {
             toolTips.Add(picServerConnction, new ToolTip());
         }
-
 
         private void InitEnvForm()
         {
@@ -90,13 +69,21 @@ namespace TomatoDBClient
         }
 
       
-        private void SetupImageHint(TextBox textBox, PictureBox pictureBox, bool downloaded, string versionInRegistry)
+        private void SetupImageHint(PictureBox pictureBox, bool connected)
         {
             ToolTip tt = null;
             if (toolTips.TryGetValue(pictureBox, out tt))
             {
-               // pictureBox.BackgroundImage = Properties.Resources.downloaded;
-                tt.SetToolTip(pictureBox, "This path is ready for selected game.");
+                if (connected)
+                {
+                    pictureBox.BackgroundImage = Properties.Resources.connected;
+                    tt.SetToolTip(pictureBox, "Connected to the server.");
+                }
+                else
+                {
+                    pictureBox.BackgroundImage = Properties.Resources.disconnected;
+                    tt.SetToolTip(pictureBox, "disconnected to the server.");
+                }
             }
         }
 
@@ -113,13 +100,10 @@ namespace TomatoDBClient
         void SetControlsEnableState(bool enabled)
         {
             listDatabases.Enabled = enabled;
-           
             btnConnect.Enabled = enabled;
-         
-
         }
 
-        private void listGames_SelectedIndexChanged(object sender, EventArgs e)
+        private void listDatabases_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
@@ -173,6 +157,7 @@ namespace TomatoDBClient
         {
             conn.Open();
             LoadDatabases();
+            SetupImageHint(picServerConnction, true);
         }
 
         private void btnCreate_Click(object sender, EventArgs e)
