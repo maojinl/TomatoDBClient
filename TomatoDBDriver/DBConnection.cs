@@ -38,7 +38,7 @@ namespace TomatoDBDriver
 
         public void DeleteDatabase(string database)
         {
-            networkMgr.CreateDatabase(database);
+            networkMgr.DeleteDatabase(database);
         }
 
         public void SetKey(string database, string key, string value)

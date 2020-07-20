@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\workspace\\TomatoDBClient\\TomatoDBDriver\\TomatoDBDriver.csproj": {}
+    "E:\\personal\\TomatoDBClient\\TomatoDBDriver\\TomatoDBDriver.csproj": {}
   },
   "projects": {
-    "C:\\workspace\\TomatoDBClient\\TomatoDBDriver\\TomatoDBDriver.csproj": {
+    "E:\\personal\\TomatoDBClient\\TomatoDBDriver\\TomatoDBDriver.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\workspace\\TomatoDBClient\\TomatoDBDriver\\TomatoDBDriver.csproj",
+        "projectUniqueName": "E:\\personal\\TomatoDBClient\\TomatoDBDriver\\TomatoDBDriver.csproj",
         "projectName": "TomatoDBDriver",
-        "projectPath": "C:\\workspace\\TomatoDBClient\\TomatoDBDriver\\TomatoDBDriver.csproj",
-        "packagesPath": "C:\\Users\\maojinl\\.nuget\\packages\\",
-        "outputPath": "C:\\workspace\\TomatoDBClient\\TomatoDBDriver\\obj\\",
+        "projectPath": "E:\\personal\\TomatoDBClient\\TomatoDBDriver\\TomatoDBDriver.csproj",
+        "packagesPath": "C:\\Users\\Jerry.mao\\.nuget\\packages\\",
+        "outputPath": "E:\\personal\\TomatoDBClient\\TomatoDBDriver\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\maojinl\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Jerry.mao\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

@@ -3,24 +3,34 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomatoDBClient", "TomatoDBClient\TomatoDBClient.csproj", "{2FCA17B8-C184-43AB-A7A1-95FD2FA930E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TomatoDBClient", "TomatoDBClient\TomatoDBClient.csproj", "{2FCA17B8-C184-43AB-A7A1-95FD2FA930E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomatoDBDriver", "TomatoDBDriver\TomatoDBDriver.csproj", "{4AEF2A6B-1834-4777-85B1-C3244C8D1CF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TomatoDBDriver", "TomatoDBDriver\TomatoDBDriver.csproj", "{4AEF2A6B-1834-4777-85B1-C3244C8D1CF8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2FCA17B8-C184-43AB-A7A1-95FD2FA930E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2FCA17B8-C184-43AB-A7A1-95FD2FA930E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FCA17B8-C184-43AB-A7A1-95FD2FA930E3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2FCA17B8-C184-43AB-A7A1-95FD2FA930E3}.Debug|x64.Build.0 = Debug|Any CPU
 		{2FCA17B8-C184-43AB-A7A1-95FD2FA930E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FCA17B8-C184-43AB-A7A1-95FD2FA930E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FCA17B8-C184-43AB-A7A1-95FD2FA930E3}.Release|x64.ActiveCfg = Release|Any CPU
+		{2FCA17B8-C184-43AB-A7A1-95FD2FA930E3}.Release|x64.Build.0 = Release|Any CPU
 		{4AEF2A6B-1834-4777-85B1-C3244C8D1CF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4AEF2A6B-1834-4777-85B1-C3244C8D1CF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AEF2A6B-1834-4777-85B1-C3244C8D1CF8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4AEF2A6B-1834-4777-85B1-C3244C8D1CF8}.Debug|x64.Build.0 = Debug|Any CPU
 		{4AEF2A6B-1834-4777-85B1-C3244C8D1CF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AEF2A6B-1834-4777-85B1-C3244C8D1CF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AEF2A6B-1834-4777-85B1-C3244C8D1CF8}.Release|x64.ActiveCfg = Release|Any CPU
+		{4AEF2A6B-1834-4777-85B1-C3244C8D1CF8}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

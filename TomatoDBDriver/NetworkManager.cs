@@ -95,7 +95,14 @@ namespace TomatoDBDriver
             SCRetDBQuery queryRet = (SCRetDBQuery)p;
             if (queryRet.Result == ASKDBOPERATION_RESULT.ASK_DB_OPERATION_R_SUCCESS)
             {
-                return queryRet.Values[0];
+                if (queryRet.Values.Count > 0)
+                {
+                    return queryRet.Values[0];
+                }
+                else
+                {
+                    return "NOT_FOUND";
+                }
             }
             else
             {

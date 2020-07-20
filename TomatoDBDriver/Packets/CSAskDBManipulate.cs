@@ -9,10 +9,18 @@ namespace TomatoDBDriver.Packets
         public DB_MANIPULATE_TYPE OperationType;
         public byte DatabaseNameSize;
         public string DatabaseName;
-        public uint KeySize;
+        public byte KeySize;
         public string Key;
-        public byte ValueSize;
+        public uint ValueSize;
         public string Value;
+
+        public CSAskDBManipulate()
+        {
+            DatabaseName = new string("");
+            Key = new string("");
+            Value = new string("");
+        }
+
         public override ushort GetPacketID()
         {
             return (ushort)PACKET_ID_DEFINE.PACKET_CS_ASKDBMANIPULATE;
@@ -21,7 +29,7 @@ namespace TomatoDBDriver.Packets
         public override uint GetPacketSize()
         {
             DatabaseNameSize = (byte)Math.Min(PacketDefines.MAX_DATABASE_NAME + 1, DatabaseName.Length);
-            KeySize = (uint)Math.Min(PacketDefines.MAX_DATABASE_VALUE + 1, Key.Length);
+            KeySize = (byte)Math.Min(PacketDefines.MAX_DATABASE_VALUE + 1, Key.Length);
             ValueSize = (byte)Math.Min(PacketDefines.MAX_DATABASE_VALUE + 1, Value.Length);
             return sizeof(DB_MANIPULATE_TYPE)
                 + sizeof(byte)
@@ -29,7 +37,7 @@ namespace TomatoDBDriver.Packets
                 + sizeof(uint)
                 + sizeof(byte) * (uint)KeySize
                  + sizeof(byte)
-                + sizeof(byte) * (uint)ValueSize;
+                + sizeof(byte) * ValueSize;
         }
 
         protected override bool ReadDetails(byte[] buf)
@@ -55,25 +63,25 @@ namespace TomatoDBDriver.Packets
             chars = Encoding.ASCII.GetBytes(DatabaseName);
             System.Buffer.BlockCopy(chars, 0, buf, pos, l);
 
-            KeySize = (uint)Math.Min(PacketDefines.MAX_DATABASE_VALUE + 1, DatabaseName.Length);
+            KeySize = (byte)Math.Min(PacketDefines.MAX_DATABASE_KEY + 1, Key.Length);
             pos += l;
-            l = sizeof(uint);
+            l = sizeof(Byte);
             chars = BitConverter.GetBytes(KeySize);
             System.Buffer.BlockCopy(chars, 0, buf, pos, l);
 
             pos += l;
             l = (int)KeySize;
-            chars = Encoding.ASCII.GetBytes(Value);
+            chars = Encoding.ASCII.GetBytes(Key);
             System.Buffer.BlockCopy(chars, 0, buf, pos, l);
 
-            ValueSize = (byte)Math.Min(PacketDefines.MAX_DATABASE_VALUE + 1, DatabaseName.Length);
+            ValueSize = (uint)Math.Min(PacketDefines.MAX_DATABASE_VALUE + 1, Value.Length);
             pos += l;
-            l = sizeof(byte);
+            l = sizeof(uint);
             chars = BitConverter.GetBytes(ValueSize);
             System.Buffer.BlockCopy(chars, 0, buf, pos, l);
 
             pos += l;
-            l = ValueSize;
+            l = (int)ValueSize;
             chars = Encoding.ASCII.GetBytes(Value);
             System.Buffer.BlockCopy(chars, 0, buf, pos, l);
 

@@ -26,6 +26,8 @@ namespace TomatoDBDriver.Packets
 
         public override uint GetPacketSize()
         {
+            DatabaseNameSize = (byte)Math.Min(PacketDefines.MAX_DATABASE_NAME + 1, DatabaseName.Length);
+            KeySize = (byte)Math.Min(PacketDefines.MAX_DATABASE_VALUE + 1, Key.Length);
             return sizeof(DB_QUERY_TYPE)
                 + sizeof(byte)
                 + sizeof(byte) * (uint)DatabaseNameSize

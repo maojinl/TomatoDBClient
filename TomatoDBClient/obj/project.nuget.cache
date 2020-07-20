@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "qpCtpblQJ+oJQ0JEUujBdBC0bvHlCg1bj07Ng2EH5CZ1vWaMv1iFrN70lXNgsDtD1nNIZ/HAu5yvfO0DK5K6WQ==",
+  "dgSpecHash": "2FeDf3VhMEdbpwUJmBKn2xJgrQBdxTl1uU++Zt2pxDyuL2UrxBdJGcKvgDnNpl6766euip1wyM7mOLdCa0s0dA==",
   "success": true,
-  "projectFilePath": "C:\\workspace\\TomatoDBClient\\TomatoDBClient\\TomatoDBClient.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "E:\\personal\\TomatoDBClient\\TomatoDBClient\\TomatoDBClient.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Jerry.mao\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
   "logs": []
 }
