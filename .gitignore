@@ -34,5 +34,5 @@
 # Folders
 build/
 bin/
-obj/
+obj
 .vs/
