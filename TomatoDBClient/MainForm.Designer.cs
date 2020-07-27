@@ -61,6 +61,7 @@ namespace TomatoDBClient
             this.messageTextBox = new System.Windows.Forms.RichTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.btnPerfTest = new System.Windows.Forms.Button();
             this.txtServer = new System.Windows.Forms.TextBox();
             this.picServerConnction = new System.Windows.Forms.PictureBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -238,6 +239,7 @@ namespace TomatoDBClient
             // 
             this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Controls.Add(this.btnPerfTest);
             this.groupBox5.Controls.Add(this.txtServer);
             this.groupBox5.Controls.Add(this.btnGetKeyValue);
             this.groupBox5.Controls.Add(this.btnDelete);
@@ -264,6 +266,16 @@ namespace TomatoDBClient
             this.groupBox5.TabIndex = 36;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Database";
+            // 
+            // btnPerfTest
+            // 
+            this.btnPerfTest.Location = new System.Drawing.Point(365, 212);
+            this.btnPerfTest.Name = "btnPerfTest";
+            this.btnPerfTest.Size = new System.Drawing.Size(122, 24);
+            this.btnPerfTest.TabIndex = 50;
+            this.btnPerfTest.Text = "Test";
+            this.btnPerfTest.UseVisualStyleBackColor = true;
+            this.btnPerfTest.Click += new System.EventHandler(this.btnPerfTest_Click);
             // 
             // txtServer
             // 
@@ -474,5 +486,6 @@ namespace TomatoDBClient
         private System.Windows.Forms.Button btnDeleteKeyValue;
         private System.Windows.Forms.Button btnGetKeyValue;
         private System.Windows.Forms.TextBox txtServer;
+        private System.Windows.Forms.Button btnPerfTest;
     }
 }

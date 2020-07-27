@@ -7,22 +7,27 @@ namespace TomatoDBDriver
 
         NetworkManager networkMgr;
         DBAccount dbAccount;
+
+        public bool Connected { get; private set; }
         //should use DbConnectionStringBuilder
         // "ConnectionString": "Server=tcp:127.0.0.1,5433;Initial Catalog=Microsoft.eShopOnContainers.Services.MarketingDb;User Id=sa;Password=Pass@word",
         public DBConnection(string ipAddr, int port, string account, string password)
         {
             networkMgr = new NetworkManager(ipAddr, port);
             dbAccount = new DBAccount(account, password);
+            Connected = false;
         }
 
         public void Open()
         {
             networkMgr.Connect(dbAccount);
+            Connected = true;
         }
 
         public void Close()
         {
             networkMgr.Disconnect();
+            Connected = false;
         }
 
         public List<string> GetDatabaseList()

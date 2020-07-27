@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace TomatoDBClient.Msg
+namespace TomatoDBClient
 {
     public sealed class MessageMgr
     {

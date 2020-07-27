@@ -9,6 +9,7 @@ namespace TomatoDBClient
         public string ServerIP { get; set; }
         public int ServerPort { get; set; }
 
+
         public SettingsJsonData()
         {
             Reset();

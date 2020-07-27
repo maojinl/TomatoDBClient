@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 using TomatoDBClient.Const;
 using TomatoDBClient.Env;
-using TomatoDBClient.Msg;
+using TomatoDBClient.Test;
 using TomatoDBDriver;
 
 namespace TomatoDBClient
@@ -118,8 +118,6 @@ namespace TomatoDBClient
             }
         }
 
-
-      
         public void ProcessOutputHandler(object sender, DataReceivedEventArgs e)
         {
             MessageMgr.Instance.ShowMessage(e.Data);
@@ -185,6 +183,15 @@ namespace TomatoDBClient
         private void btnGetKeyValue_Click(object sender, EventArgs e)
         {
             txtValue.Text = conn.GetKeyValue(txtDatabase.Text, txtKey.Text);
+        }
+
+        private void btnPerfTest_Click(object sender, EventArgs e)
+        {
+            if (conn.Connected)
+            {
+                PerformanceTest test = new PerformanceTest();
+                test.RunTest(settings.ServerIP, settings.ServerPort, "account", "pass");
+            }
         }
     }
 }
