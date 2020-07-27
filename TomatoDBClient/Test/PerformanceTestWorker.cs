@@ -8,8 +8,8 @@ namespace TomatoDBClient.Test
     class PerformanceTestWorker
     {
 		public int TestType; //0 create delete database; 1 insert or delete Data; 2 get data;
-		int TestRound;
-		public bool Active { get; private set; }
+		public int TestRound;
+		public bool Active { get; set; }
 		DBConnection conn;
 		Random rand;
 		int Id;
@@ -19,11 +19,11 @@ namespace TomatoDBClient.Test
 		public static readonly Mutex myLock = new Mutex();
 		public static string DBNamePrefix = "PerfTestDB";
 
-		public PerformanceTestWorker(int id, int type, int round, DBConnection dbconn)
+		public PerformanceTestWorker(int id, int type, DBConnection dbconn)
 		{
 			Id = id;
 			TestType = type;
-			TestRound = round;
+			TestRound = 0;
 			conn = dbconn;
 			rand = new Random();
 			FailedCount = 0;
@@ -53,9 +53,8 @@ namespace TomatoDBClient.Test
 		void CreateOrDeleteDB()
 		{
 			bool ret = false;
-			for (int i = 0; i < TestRound; i++)
+			while(Active)
 			{
-				
 				int idx = rand.Next(0, PerformanceTest.MAX_TEST_DATABASE - 1);
 				string dbname = DBNamePrefix + idx;
 				if (DBNameIndex[idx])
@@ -93,6 +92,7 @@ namespace TomatoDBClient.Test
 				{
 					FailedCount++;
 				}
+				TestRound++;
 			}
 
 			return;
@@ -105,7 +105,7 @@ namespace TomatoDBClient.Test
 			string key;
 			string value = "value";
 			bool ret = false;
-			for (int i = 0; i < TestRound; i++)
+			while (Active)
 			{
 				dblist = conn.GetDatabaseList();
 				if (dblist.Count != 0)
@@ -142,10 +142,7 @@ namespace TomatoDBClient.Test
 					{
 						FailedCount++;
 					}
-				}
-				else
-				{
-					i--;
+					TestRound++;
 				}
 			}
 			return;
@@ -158,7 +155,7 @@ namespace TomatoDBClient.Test
 			string key;
 			string value = "value";
 			bool ret = false;
-			for (int i = 0; i < TestRound; i++)
+			while (Active)
 			{
 				dblist = conn.GetDatabaseList();
 				int n = rand.Next(0, dblist.Count - 1);
@@ -180,10 +177,8 @@ namespace TomatoDBClient.Test
 					{
 						FailedCount++;
 					}
-				}
-				else
-				{
-					i--;
+
+					TestRound++;
 				}
 			}
 			return;

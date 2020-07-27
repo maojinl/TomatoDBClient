@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using TomatoDBClient.Const;
@@ -189,8 +190,8 @@ namespace TomatoDBClient
         {
             if (conn.Connected)
             {
-                PerformanceTest test = new PerformanceTest();
-                test.RunTest(settings.ServerIP, settings.ServerPort, "account", "pass");
+                PerformanceTest test = new PerformanceTest(progressBar1, settings.ServerIP, settings.ServerPort, "account", "pass");
+                Task t = Task.Run(test.RunTest);
             }
         }
     }

@@ -3,25 +3,37 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using TomatoDBDriver;
 
 namespace TomatoDBClient.Test
 {
     class PerformanceTest
     {
-		public const int TEST_ROUNDS = 10000;
+		public const int TEST_ROUNDS = 1000;
 		public const int TEST_THREADS = 10;
 		public const int MAX_TEST_DATABASE = 20;
 		public const int MAX_TEST_KEY = 10000;
 
 		public DBConnection[] DBConn;
 		public PerformanceTestWorker[] workers;
+		ProgressBar probar;
+		string Addr;
+		int Port;
+		string Account;
+		string Password;
 
-		public PerformanceTest()
-        {
-        }
+		public PerformanceTest(ProgressBar bar, string ipAddr, int port, string account, string password)
+		{
+			probar = bar;
+			Addr = ipAddr;
+			Port = port;
+			Account = account;
+			Password = password;
+		}
 
-		public void RunTest(string ipAddr, int port, string account, string password)
+		public async Task RunTest()
 		{
 			MessageMgr.Instance.ShowMessage("Starting performcance test with " + TEST_THREADS + "threads.",
 				MessageMgr.MessageType.MessgeNormal);
@@ -34,19 +46,19 @@ namespace TomatoDBClient.Test
 			DBConn = new DBConnection[TEST_THREADS];
 			for (int i = 0; i < TEST_THREADS; i++)
 			{
-				DBConn[i] = new DBConnection(ipAddr, port, account, password);
+				DBConn[i] = new DBConnection(Addr, Port, Account, Password);
 				DBConn[i].Open();
 				if (i < TEST_THREADS / 5)
 				{
-					workers[i] = new PerformanceTestWorker(i, 0, TEST_ROUNDS, DBConn[i]);
+					workers[i] = new PerformanceTestWorker(i, 0, DBConn[i]);
 				}
 				else if (i < TEST_THREADS / 4 * 2)
 				{
-					workers[i] = new PerformanceTestWorker(i, 1, TEST_ROUNDS, DBConn[i]);
+					workers[i] = new PerformanceTestWorker(i, 1, DBConn[i]);
 				}
 				else if (i < TEST_THREADS)
 				{
-					workers[i] = new PerformanceTestWorker(i, 2, TEST_ROUNDS, DBConn[i]);
+					workers[i] = new PerformanceTestWorker(i, 2, DBConn[i]);
 				}
 			}
 
@@ -57,10 +69,21 @@ namespace TomatoDBClient.Test
 				newThread.Start();
 			}
 
+			int maxTotalRounds = TEST_THREADS * TEST_ROUNDS;
 			while (true)
 			{
-				Thread.Sleep(2000);
+				Thread.Sleep(1000);
 				bool allDone = true;
+				int totalRounds = 0;
+				for (int i = 0; i < TEST_THREADS - 1; i++)
+				{
+					totalRounds += workers[i].TestRound;
+					if (workers[i].TestRound >= TEST_ROUNDS)
+                    {
+						workers[i].Active = false;
+					}
+				}
+				
 				for (int i = 0; i < TEST_THREADS - 1; i++)
 				{
 					if (workers[i].Active)
@@ -69,8 +92,10 @@ namespace TomatoDBClient.Test
 						break;
 					}
 				}
+				ProgressChanged(totalRounds, maxTotalRounds);
 				if (allDone)
                 {
+					Thread.Sleep(1000);
 					break;
                 }
 			}
@@ -101,6 +126,17 @@ namespace TomatoDBClient.Test
 
 			MessageMgr.Instance.ShowMessage("Finished performcance test.",
 			MessageMgr.MessageType.MessageSuccessfullyFinished);
+		}
+
+		protected virtual void ProgressChanged(int value, int total)
+		{
+			//long totalPercent = value / total;
+			//if (totalPercent > int.MaxValue)
+			//{
+			//	totalPercent = int.MaxValue;
+			//}
+			probar.Maximum = total;
+			probar.Value = value;
 		}
 	}
 }
