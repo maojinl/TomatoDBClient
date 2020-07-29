@@ -34,5 +34,6 @@
 # Folders
 build/
 bin/
-obj
+obj/
 .vs/
+*.cache
