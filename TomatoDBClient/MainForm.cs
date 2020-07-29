@@ -191,7 +191,7 @@ namespace TomatoDBClient
             if (conn.Connected)
             {
                 PerformanceTest test = new PerformanceTest(progressBar1, settings.ServerIP, settings.ServerPort, "account", "pass");
-                Task t = Task.Run(test.RunTestSync);
+                test.TestWorker.RunWorkerAsync();
             }
         }
     }
