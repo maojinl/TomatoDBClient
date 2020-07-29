@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading;
@@ -11,8 +12,8 @@ namespace TomatoDBClient.Test
 {
     class PerformanceTest
     {
-		public const int TEST_ROUNDS = 1000;
-		public const int TEST_THREADS = 10;
+		public const int TEST_ROUNDS = 100;
+		public const int TEST_THREADS = 100;
 		public const int MAX_TEST_DATABASE = 20;
 		public const int MAX_TEST_KEY = 10000;
 
@@ -24,24 +25,33 @@ namespace TomatoDBClient.Test
 		string Account;
 		string Password;
 
-		public PerformanceTest(ProgressBar bar, string ipAddr, int port, string account, string password)
+        public BackgroundWorker TestWorker { get; private set; } = new BackgroundWorker();
+
+        public PerformanceTest(ProgressBar bar, string ipAddr, int port, string account, string password)
 		{
 			probar = bar;
-			Addr = ipAddr;
+            probar.Maximum = int.MaxValue;
+            Addr = ipAddr;
 			Port = port;
 			Account = account;
 			Password = password;
-		}
+            InitBackgroundWorker();
 
-        public async Task RunTestSync()
-        {
-            await Task.Run(RunTest);
         }
 
-        public void RunTest()
+        public void InitBackgroundWorker()
+        {
+            TestWorker.WorkerSupportsCancellation = true;
+            TestWorker.WorkerReportsProgress = true;
+            TestWorker.ProgressChanged += testWorker_ProgressChanged;
+            TestWorker.DoWork += RunTest;
+            TestWorker.RunWorkerCompleted += testWorker_RunWorkerCompleted;
+        }
+
+        protected virtual void RunTest(object sender, DoWorkEventArgs e)
         {
             DateTime dt = DateTime.Now;
-            MessageMgr.Instance.ShowMessage("Starting performcance test with " + TEST_THREADS + "threads.",
+            MessageMgr.Instance.ShowMessage("Starting performcance test with " + TEST_THREADS + " connections.",
                 MessageMgr.MessageType.MessgeNormal);
             for (int i = 0; i < MAX_TEST_DATABASE; i++)
             {
@@ -76,6 +86,7 @@ namespace TomatoDBClient.Test
             }
 
             int maxTotalRounds = TEST_THREADS * TEST_ROUNDS;
+            TestWorker.ReportProgress(-1, maxTotalRounds);
             while (true)
             {
                 Thread.Sleep(1000);
@@ -98,7 +109,7 @@ namespace TomatoDBClient.Test
                         break;
                     }
                 }
-                //ProgressChanged(totalRounds, maxTotalRounds);
+                TestWorker.ReportProgress(totalRounds);
                 if (allDone)
                 {
                     Thread.Sleep(1000);
@@ -109,7 +120,7 @@ namespace TomatoDBClient.Test
             for (int i = 0; i < TEST_THREADS; i++)
             {
                 MessageMgr.Instance.ShowMessage("Thread " + i + "Failed Count is " + workers[i].FailedCount,
-                    MessageMgr.MessageType.MessageError);
+                    MessageMgr.MessageType.MessageWarning);
             }
 
             for (int i = 0; i < MAX_TEST_DATABASE; i++)
@@ -134,15 +145,20 @@ namespace TomatoDBClient.Test
             MessageMgr.MessageType.MessageSuccessfullyFinished);
         }
 
-        protected virtual void ProgressChanged(int value, int total)
-		{
-			//long totalPercent = value / total;
-			//if (totalPercent > int.MaxValue)
-			//{
-			//	totalPercent = int.MaxValue;
-			//}
-			probar.Maximum = total;
-			probar.Value = value;
-		}
+        protected virtual void testWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            probar.Value = 0;
+        }
+
+        protected virtual void testWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            if (e.ProgressPercentage == -1)
+                probar.Maximum = Convert.ToInt32(e.UserState);
+            else
+            {
+                int p = e.ProgressPercentage < probar.Maximum ? e.ProgressPercentage : probar.Maximum;
+                probar.Value = p;
+            }
+        }
 	}
 }
