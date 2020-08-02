@@ -64,7 +64,7 @@ namespace TomatoDBClient.Test
             {
                 DBConn[i] = new DBConnection(Addr, Port, Account, Password);
                 DBConn[i].Open();
-                if (i < TEST_THREADS / 5)
+                if (i <= TEST_THREADS / 5)
                 {
                     workers[i] = new PerformanceTestWorker(i, 0, DBConn[i]);
                 }

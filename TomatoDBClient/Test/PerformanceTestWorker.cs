@@ -107,12 +107,16 @@ namespace TomatoDBClient.Test
 			bool ret = false;
 			while (Active)
 			{
-				dblist = conn.GetDatabaseList();
-				if (dblist.Count != 0)
-				{
-					int n = rand.Next(0, dblist.Count - 1);
-					dbname = dblist[n];
-					n = rand.Next(0, PerformanceTest.MAX_TEST_KEY);
+                dblist = conn.GetDatabaseList();
+                if (dblist.Count != 0)
+                {
+                    int n = rand.Next(0, dblist.Count - 1);
+                    dbname = dblist[n];
+                    n = rand.Next(0, PerformanceTest.MAX_TEST_KEY);
+					//int idx = rand.Next(0, PerformanceTest.MAX_TEST_DATABASE - 1);
+					//dbname = DBNamePrefix + idx;
+					//int n = rand.Next(0, PerformanceTest.MAX_TEST_KEY); 
+
 					key = n.ToString();
 					n = rand.Next(0, 4);
 					ret = true;
@@ -158,11 +162,15 @@ namespace TomatoDBClient.Test
 			while (Active)
 			{
 				dblist = conn.GetDatabaseList();
-				int n = rand.Next(0, dblist.Count - 1);
 				if (dblist.Count != 0)
 				{
+					int n = rand.Next(0, dblist.Count - 1);
 					dbname = dblist[n];
 					n = rand.Next(0, PerformanceTest.MAX_TEST_KEY);
+					//int idx = rand.Next(0, PerformanceTest.MAX_TEST_DATABASE - 1);
+					//dbname = DBNamePrefix + idx;
+					//int n = rand.Next(0, PerformanceTest.MAX_TEST_KEY); 
+
 					key = n.ToString();
 					ret = true;
 					try

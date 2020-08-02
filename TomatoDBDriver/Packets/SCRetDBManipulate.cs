@@ -7,7 +7,7 @@ namespace TomatoDBDriver.Packets
 {
     public class SCRetDBManipulate : Packet
     {
-        public DB_MANIPULATE_TYPE OperationType;
+        public DB_MANIPULATE_TYPE ManipulateType;
         public ASKDBOPERATION_RESULT Result;
 
         public override ushort GetPacketID()
@@ -27,7 +27,7 @@ namespace TomatoDBDriver.Packets
             int l = sizeof(DB_MANIPULATE_TYPE);
             byte[] chars = new byte[l];
             System.Buffer.BlockCopy(buf, pos, chars, 0,  l);
-            OperationType = (DB_MANIPULATE_TYPE)BitConverter.ToUInt32(chars);
+            ManipulateType = (DB_MANIPULATE_TYPE)BitConverter.ToUInt32(chars);
 
             pos += l;
             l = sizeof(ASKDBOPERATION_RESULT);
