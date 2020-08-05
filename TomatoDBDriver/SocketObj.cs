@@ -19,7 +19,7 @@ namespace TomatoDBDriver
         public SocketObj(string addr, int port)
         {
             IPHostEntry ipHostInfo = Dns.GetHostEntry(addr);
-            ipAddress = ipHostInfo.AddressList[0];
+            ipAddress = IPAddress.Parse(addr);
             iPort = port;
             _disposed = false;
             Connected = false;

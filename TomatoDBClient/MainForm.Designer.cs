@@ -204,7 +204,7 @@ namespace TomatoDBClient
             this.panel2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel2.AutoSize = true;
             this.panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel2.Location = new System.Drawing.Point(765, 24);
+            this.panel2.Location = new System.Drawing.Point(765, 22);
             this.panel2.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(0, 0);
@@ -244,7 +244,7 @@ namespace TomatoDBClient
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.btnPerfTest1);
             this.groupBox1.Controls.Add(this.progressBar1);
-            this.groupBox1.Location = new System.Drawing.Point(1004, 299);
+            this.groupBox1.Location = new System.Drawing.Point(1004, 267);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(750, 118);
             this.groupBox1.TabIndex = 37;
@@ -414,7 +414,7 @@ namespace TomatoDBClient
             this.listDatabases.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.listDatabases.FormattingEnabled = true;
             this.listDatabases.ItemHeight = 17;
-            this.listDatabases.Location = new System.Drawing.Point(6, 8);
+            this.listDatabases.Location = new System.Drawing.Point(2, 3);
             this.listDatabases.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.listDatabases.Name = "listDatabases";
             this.listDatabases.Size = new System.Drawing.Size(986, 412);
